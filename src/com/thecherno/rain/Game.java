@@ -20,7 +20,7 @@ public class Game extends Canvas implements Runnable{
 	public static int width = 300;
 	public static int height = 168;
 	public static int scale = 3;
-	
+	private String title="Rain";
 	private Screen screen;
 	private Thread thread;
 	private boolean running = false;
@@ -53,24 +53,30 @@ public class Game extends Canvas implements Runnable{
 	@Override
 	public void run() {
 		long lastTime = System.nanoTime();
+		long timer = System.currentTimeMillis();
 		final double ns = 1000000000.0/60.0;
 		double delta=0;
-		boolean c = false;
+		int frames = 0;
+		int updates = 0;
 		while(running){
 			long now = System.nanoTime();
 			delta+=(now-lastTime)/ns;
-//			if(c){
-//				System.out.println("Time taken: "+(now-lastTime));
-//				System.exit(0);
-//			}
 			lastTime=now;	
 			while(delta>=1){
 				update();
+				updates++;
 				delta--;
 			}
-			
 			render();
-//			c=true;
+			frames++;
+			if((System.currentTimeMillis()-timer)>1000){
+				timer+=1000;
+				System.out.println(updates+"ups, "+frames+" fps");
+				frame.setTitle(title+" | ups "+ updates+", fps "+frames);
+				frames = 0;
+				updates = 0;
+			}
+			
 		}
 		stop();
 	}
