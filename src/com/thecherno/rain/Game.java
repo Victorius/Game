@@ -11,6 +11,7 @@ import java.awt.image.DataBufferInt;
 import javax.swing.JFrame;
 
 import com.thecherno.rain.graphics.Screen;
+import com.thecherno.rain.input.Keyboard;
 
 public class Game extends Canvas implements Runnable{
 	/**
@@ -22,9 +23,10 @@ public class Game extends Canvas implements Runnable{
 	public static int scale = 3;
 	private String title="Rain";
 	private Screen screen;
-	private Thread thread;
+	private Thread thread;	
 	private boolean running = false;
 	private JFrame frame;
+	private Keyboard key;
 	private BufferedImage image= new BufferedImage(width, height,BufferedImage.TYPE_INT_RGB);
 	private int[] pixels = ((DataBufferInt)image.getRaster().getDataBuffer()).getData();
 	
@@ -33,6 +35,8 @@ public class Game extends Canvas implements Runnable{
 		setPreferredSize(size);
 		screen = new Screen(width, height);
 		frame = new JFrame();
+		key = new Keyboard();
+		addKeyListener(key);
 	}
 	
 	public synchronized void start(){
@@ -82,6 +86,7 @@ public class Game extends Canvas implements Runnable{
 	}
 	int x=0,y=0;
 	public void update(){
+		key.update();
 		y++;
 		x++;
 //		
