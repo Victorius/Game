@@ -28,12 +28,12 @@ public class Screen {
 	public void render(int xOffset, int yOffset){
 		for(int y=0;y<height;y++){
 			int yy = y+yOffset;
-//			if(yy< 0 || yy>=height) break;
+			if(yy< 0 || yy>=height) continue;
 			for(int x=0;x<width;x++){
 				int xx= x+xOffset;
-//				if(xx<0 || xx>=width) break;
-//				int tileIndex = ((xx>>4)&MAP_SIZE_MASK)+((yy>>4)&MAP_SIZE_MASK)*MAP_SIZE;
-				pixels[x+y*width]=Sprite.grass.pixels[(x&15)+(y&15)*Sprite.grass.SIZE];//tiles[tileIndex];
+				if(xx<0 || xx>=width) continue;
+				int tileIndex = ((xx>>4)&MAP_SIZE_MASK)+((yy>>4)&MAP_SIZE_MASK)*MAP_SIZE;
+				pixels[xx+yy*width]=Sprite.grass.pixels[(x&15)+(y&15)*Sprite.grass.SIZE];//tiles[tileIndex];
 			}
 		}
 	}
