@@ -4,13 +4,13 @@ import com.thecherno.rain.graphics.Screen;
 
 public class Level {
 	
-	private int width,height;
-	private int[] tiles;
+	protected int width,height;
+	protected int[] tiles;
 	public Level(int width, int height){
 		this.height=height;
 		this.width = width;
-		generateLevel();		
-		
+		this.tiles= new int[width*height];
+		generateLevel();
 	}
 	public Level(String path){
 		loadLevel(path);
@@ -18,7 +18,7 @@ public class Level {
 	}
 	
 	
-	private void generateLevel(){
+	protected void generateLevel(){
 		
 	}
 	
